@@ -1,0 +1,22 @@
+#ifndef BOARDANALOGOUTPUT_H
+#define BOARDANALOGOUTPUT_H
+
+#include <Arduino.h>
+#include "AnalogOutput.h"
+
+
+class BoardAnalogOutput : public AnalogOutput
+{
+public:
+    BoardAnalogOutput();
+    BoardAnalogOutput(byte pin);
+    void loop();
+    int GetValue();
+    void SetValue(int value);
+
+private:
+    byte pin;
+    int value;
+};
+
+#endif
