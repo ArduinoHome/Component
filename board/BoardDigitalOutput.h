@@ -7,7 +7,7 @@
 class BoardDigitalOutput : public DigitalOutput
 {
 private:
-    static bool reverse;
+    bool reverse;
     byte pin;
     bool value;
     
