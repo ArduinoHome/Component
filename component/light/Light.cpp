@@ -17,7 +17,6 @@ void Light::loop()
     if (input->GetValue() && !MemState)
     {
         output->Toggle();
-
         publishLigtStatus();
     }
 }
