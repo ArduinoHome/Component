@@ -16,6 +16,7 @@ private:
     const char *topicStatus;
     DigitalInput *input;
     DigitalOutput *output;
+    void publishLigtStatus();
 
 public:
     Light();

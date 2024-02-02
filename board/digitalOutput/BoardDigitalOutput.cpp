@@ -4,6 +4,7 @@ BoardDigitalOutput::BoardDigitalOutput() {}
 
 BoardDigitalOutput::BoardDigitalOutput(byte pin, bool reverse)
 {
+    this->reverse=reverse;
     if (reverse)
         digitalWrite(pin, HIGH);
     else
