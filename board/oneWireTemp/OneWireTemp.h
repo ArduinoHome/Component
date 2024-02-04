@@ -3,9 +3,9 @@
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include "Timer.h"
+#include "../../tool/timer/Timer.h"
 
-#include "FloatInput.h"
+#include "../../dataInterface/FloatInput.h"
 
 class OneWireTemp : public FloatInput
 {
