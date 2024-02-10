@@ -2,7 +2,7 @@
 #define BOARDDIGITALINPUT_H
 
 #include <Arduino.h>
-#include "../../dataInterface/DigitalInput.h"
+#include <DigitalInput.h>
 
 class BoardDigitalInput : public DigitalInput
 {

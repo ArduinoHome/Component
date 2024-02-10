@@ -4,11 +4,11 @@
 
 Light::Light() {}
 
-Light::Light(PubSubClient *mqttPtr, const char *topicCmd, const char *topicStatus, DigitalInput *input, DigitalOutput *output)
+Light::Light(PubSubClient *mqttPtr, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output)
 {
     this->mqttClient = mqttPtr;
-    this->topicCmd = topicCmd;
-    this->topicStatus = topicStatus;
+    snprintf(this->topicCmd, sizeof(this->topicCmd), "%s/light/%s/cmd", deviceName, lightName);
+    snprintf(this->topicStatus, sizeof(this->topicStatus), "%s/light/%s/status", deviceName, lightName);
     this->input = input;
 }
 
@@ -39,7 +39,7 @@ void Light::mqttCallback(char *topic, byte *payload, unsigned int length)
         else if (payload[0] == '0')
             output->SetOff();
 
-            publishLigtStatus();
+        publishLigtStatus();
     }
 }
 

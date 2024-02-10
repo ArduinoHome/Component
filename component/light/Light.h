@@ -4,8 +4,8 @@
 #include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
-#include "../../board/digitalInput/BoardDigitalInput.h"
-#include "../../board/digitalOutput/BoardDigitalOutput.h"
+#include <BoardDigitalInput.h>
+#include <BoardDigitalOutput.h>
 
 class Light
 {
@@ -20,7 +20,7 @@ private:
 
 public:
     Light();
-    Light(PubSubClient *mqttPtr, const char *topicCmd, const char *topicStatus,DigitalInput *input,DigitalOutput *output);
+    Light(PubSubClient *mqttPtr, const char *lightName, const char *deviceName, DigitalInput *input,DigitalOutput *output);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

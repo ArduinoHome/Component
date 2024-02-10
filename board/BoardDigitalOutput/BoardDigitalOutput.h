@@ -2,7 +2,7 @@
 #define BOARDDIGITALOUTPUT_H
 
 #include <Arduino.h>
-#include "../../dataInterface/DigitalOutput.h"
+#include <DigitalOutput.h>
 
 class BoardDigitalOutput : public DigitalOutput
 {
