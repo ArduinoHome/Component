@@ -2,7 +2,7 @@
 #define BOARDANALOGINPUT_H
 
 #include <Arduino.h>
-#include <AnalogInput.h>
+#include "AnalogInput.h"
 
 
 class BoardAnalogInput : public AnalogInput

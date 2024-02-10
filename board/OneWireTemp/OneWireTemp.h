@@ -3,14 +3,13 @@
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#include <Timer.h>
+#include "Timer.h"
 
-#include <FloatInput.h>
+#include "FloatInput.h"
 
 class OneWireTemp : public FloatInput
 {
 private:
-    OneWire busOnewire;
     DallasTemperature dallasTemperatureSensor;
     Timer timerScan;
     double value;
@@ -18,10 +17,9 @@ private:
 
 public:
     OneWireTemp();
-    OneWireTemp(uint8_t pinOneWire,uint8_t deviceId =0);
+    OneWireTemp(OneWire *busOnewire, uint8_t deviceId = 0);
     void loop();
     double GetValue();
-
 };
 
 #endif

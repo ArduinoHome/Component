@@ -4,8 +4,8 @@
 #include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
-#include <BoardDigitalInput.h>
-#include <BoardDigitalOutput.h>
+#include "BoardDigitalInput.h"
+#include "BoardDigitalOutput.h"
 
 class Light
 {

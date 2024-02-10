@@ -2,11 +2,10 @@
 
 OneWireTemp::OneWireTemp() {}
 
-OneWireTemp::OneWireTemp(uint8_t pinOneWire, uint8_t deviceId = 0)
+OneWireTemp::OneWireTemp(OneWire *busOnewire, uint8_t deviceId = 0)
 {
     this->deviceId = deviceId;
-    busOnewire.begin(pinOneWire);
-    dallasTemperatureSensor = DallasTemperature(&busOnewire);
+    dallasTemperatureSensor = DallasTemperature(busOnewire);
     dallasTemperatureSensor.begin();
     timerScan.Start(1000, true);
     dallasTemperatureSensor.requestTemperatures();
