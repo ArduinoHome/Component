@@ -19,6 +19,7 @@ void Light::loop()
         output->Toggle();
         publishLigtStatus();
     }
+    MemState = input->GetValue();
 }
 
 void Light::reconnected()
