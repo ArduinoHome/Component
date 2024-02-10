@@ -4,33 +4,37 @@
 #define OTETHERNET
 #include <ArduinoOTA.h>
 
-${include-component}
+#include "BoardReboot.h"
+
+$ { include - component }
 
 #define NAME_ARDUINO "${board-name}"
 #define MQTT_USERNAME "${mqtt-user}"
 #define MQTT_PASSWORD "${mqtt-password}"
 
-
 #define VERSION "${version}"
 
 #define OTA_PASSWORD "${ota-password}"
 
-#define DIGITALBOUNCE ${digital-bounce}
+#define DIGITALBOUNCE \
+  $ { digital - bounce }
 
 void (*Reboot)(void) = 0;
 
-byte mac[] = {${mac-address}};
+byte mac[] = {${mac - address}};
 long lastReconnectAttempt = 0;
-IPAddress server(${mqtt-server});
+IPAddress server(${mqtt - server});
 EthernetClient ethClient;
 PubSubClient client(ethClient);
+BoardReboot boardReboot;
 
-${declaration-component}
+$ { declaration - component }
 
 void setup()
 {
   ${init}
 
+  boardReboot = BoardReboot(&client, NOME_ARDUINO);
   Ethernet.begin(mac);
   delay(3000);
   client.setServer(server, 1883);
@@ -44,14 +48,16 @@ boolean reconnect()
   if (client.connect(NAME_ARDUINO, MQTT_USERNAME, MQTT_PASSWORD))
   {
     client.publish(VERSION, "${board-name}/version", true);
-    ${reconnected}
+    boardReboot.reconnected();
+    $ { reconnected }
   }
   return client.connected();
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
-  ${callback}
+  boardReboot.mqttCallback(topic, payload, length);
+  $ { callback }
 }
 
 void loop()
@@ -78,5 +84,8 @@ void loop()
 
   ${run}
 
-  ${output}
+  $
+  {
+    output
+  }
 }
