@@ -6,7 +6,7 @@
 
 #include "BoardReboot.h"
 
-$ { include - component }
+${include-component}
 
 #define NAME_ARDUINO "${board-name}"
 #define MQTT_USERNAME "${mqtt-user}"
@@ -16,19 +16,18 @@ $ { include - component }
 
 #define OTA_PASSWORD "${ota-password}"
 
-#define DIGITALBOUNCE \
-  $ { digital - bounce }
+#define DIGITALBOUNCE ${digital-bounce}
 
 void (*Reboot)(void) = 0;
 
-byte mac[] = {${mac - address}};
+byte mac[] = {${mac-address}};
 long lastReconnectAttempt = 0;
-IPAddress server(${mqtt - server});
+IPAddress server(${mqtt-server});
 EthernetClient ethClient;
 PubSubClient client(ethClient);
 BoardReboot boardReboot;
 
-$ { declaration - component }
+${declaration-component}
 
 void setup()
 {
@@ -49,7 +48,7 @@ boolean reconnect()
   {
     client.publish(VERSION, "${board-name}/version", true);
     boardReboot.reconnected();
-    $ { reconnected }
+    ${reconnected}
   }
   return client.connected();
 }
@@ -57,7 +56,7 @@ boolean reconnect()
 void callback(char *topic, byte *payload, unsigned int length)
 {
   boardReboot.mqttCallback(topic, payload, length);
-  $ { callback }
+  ${callback}
 }
 
 void loop()
@@ -84,8 +83,5 @@ void loop()
 
   ${run}
 
-  $
-  {
-    output
-  }
+  ${output}
 }

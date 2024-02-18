@@ -9,11 +9,10 @@ class BoardReboot
 {
 private:
     PubSubClient *mqttClient;
-    char *topicCmd;
+    const char *device;
     void (*Reboot)(void) = 0;
 
 public:
-    BoardReboot();
     BoardReboot(PubSubClient *mqttPtr, const char *deviceName);
     void loop();
     void reconnected();

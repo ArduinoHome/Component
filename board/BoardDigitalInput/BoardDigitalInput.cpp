@@ -1,49 +1,50 @@
 #include "BoardDigitalInput.h"
 
-BoardDigitalInput::BoardDigitalInput(){}
 
-BoardDigitalInput::BoardDigitalInput(byte pin, byte maxRimbalzo)
+
+BoardDigitalInput::BoardDigitalInput(byte pin,byte maxBounce) :pinNumber(pin), bounceFilter(maxBounce){}
+
+void BoardDigitalInput::setup()
 {
-    this->maxRimbalzo = maxRimbalzo;
-    this->pin = pin;
-    pinMode(pin, INPUT_PULLUP);
+    pinMode(pinNumber, INPUT_PULLUP);
+    //changed = false;
 }
-
-/* void DigitalInput::loop()
-{
-    bool value = false;
-
-    if (!digitalRead(pin))
-    {
-        if (rimbalzo < maxRimbalzo)
-            rimbalzo++;
-        else
-            value = true;
-    }
-    else
-        rimbalzo = 0;
-
-    return value;
-}
- */
 
 void BoardDigitalInput::loop()
 {
-    if (!digitalRead(pin))
+    changed = false;
+    if (!digitalRead(pinNumber))
     {
-        if (rimbalzo < maxRimbalzo)
+        if (rimbalzo < bounceFilter)
             rimbalzo++;
-        else
-            this->value = true;
+        else if (value != true)
+        {
+            value = true;
+            // if (onChangeCallback != NULL)
+            //     onChangeCallback(value);
+            changed = true;
+        }
     }
-    else
+    else if (value != false)
     {
         rimbalzo = 0;
-        this->value = false;
+        // if (onChangeCallback != NULL)
+        //         onChangeCallback(value);
+        value = false;
+        changed = true;
     }
 }
 
 bool BoardDigitalInput::GetValue()
 {
     return value;
+}
+
+/* void BoardDigitalInput::OnChange(void (*callback)(bool))
+{
+    onChangeCallback = callback;
+} */
+
+bool BoardDigitalInput::HasChanged(){
+    return changed;
 }

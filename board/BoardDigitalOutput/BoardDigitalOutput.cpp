@@ -1,24 +1,25 @@
 #include "BoardDigitalOutput.h"
 
-BoardDigitalOutput::BoardDigitalOutput() {}
-
-BoardDigitalOutput::BoardDigitalOutput(byte pin, bool reverse)
+BoardDigitalOutput::BoardDigitalOutput(const byte pin, const bool reverse) : pinNumber(pin), reverseOutput(reverse)
 {
-    this->reverse=reverse;
-    if (reverse)
-        digitalWrite(pin, HIGH);
-    else
-        digitalWrite(pin, LOW);
+}
 
-    pinMode(pin, OUTPUT);
+void BoardDigitalOutput::setup()
+{
+    if (reverseOutput)
+        digitalWrite(pinNumber, HIGH);
+    else
+        digitalWrite(pinNumber, LOW);
+
+    pinMode(pinNumber, OUTPUT);
 }
 
 void BoardDigitalOutput::loop()
 {
-    if (reverse)
-        digitalWrite(pin, !value);
+    if (reverseOutput)
+        digitalWrite(pinNumber, !value);
     else
-        digitalWrite(pin, value);
+        digitalWrite(pinNumber, value);
 }
 
 bool BoardDigitalOutput::GetValue()
@@ -26,22 +27,22 @@ bool BoardDigitalOutput::GetValue()
     return value;
 }
 
-void BoardDigitalOutput::SetValue(bool value)
+void BoardDigitalOutput::SetValue(bool newValue)
 {
-    this->value = value;
+    value = newValue;
 }
 
 void BoardDigitalOutput::SetOn()
 {
-    this->value = true;
+    value = true;
 }
 
 void BoardDigitalOutput::SetOff()
 {
-    this->value = false;
+    value = false;
 }
 
 void BoardDigitalOutput::Toggle()
 {
-    this->value = !value;
+    value = !value;
 }

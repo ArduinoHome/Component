@@ -2,50 +2,59 @@
 #define ON "1"
 #define OFF "0"
 
-Light::Light() {}
-
-Light::Light(PubSubClient *mqttPtr, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output)
+Light::Light(PubSubClient *mqttPtr, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output) : device(deviceName), light(lightName)
 {
-    this->mqttClient = mqttPtr;
-    snprintf(this->topicCmd, sizeof(this->topicCmd), "%s/light/%s/cmd", deviceName, lightName);
-    snprintf(this->topicStatus, sizeof(this->topicStatus), "%s/light/%s/status", deviceName, lightName);
-    this->input = input;
+    pClient = mqttPtr;
+    pDigitalInput = input;
+    pDigitalOutput = output;
 }
 
 void Light::loop()
 {
-    if (input->GetValue() && !MemState)
+    if (pDigitalInput->HasChanged() && pDigitalInput->GetValue())
     {
-        output->Toggle();
-        publishLigtStatus();
+        pDigitalOutput->Toggle();
+        publishLightStatus();
     }
-    MemState = input->GetValue();
 }
 
 void Light::reconnected()
 {
-    if (mqttClient->connected())
-    {
-        mqttClient->subscribe(topicCmd);
-        publishLigtStatus();
-    }
+    String r = String(device) + String("/light/") + String(light) + String("/command");
+    char charArray[r.length() + 1];
+    r.toCharArray(charArray, sizeof(charArray));
+
+    if (pClient->connected())
+        pClient->subscribe(charArray);
+
+    publishLightStatus();
 }
 
 void Light::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    if (strcmp(topic, topicCmd) == 0)
+    String r = String(device) + String("/light/") + String(light) + String("/command");
+    char charArray[r.length() + 1];
+    r.toCharArray(charArray, sizeof(charArray));
+
+    if (strcmp(topic, charArray) == 0)
     {
         if (payload[0] == '1')
-            output->SetOn();
+            pDigitalOutput->SetOn();
         else if (payload[0] == '0')
-            output->SetOff();
+            pDigitalOutput->SetOff();
 
-        publishLigtStatus();
+        publishLightStatus();
     }
 }
 
-void Light::publishLigtStatus()
+void Light::publishLightStatus()
 {
-    if (mqttClient->connected())
-        mqttClient->publish(topicStatus, output->GetValue() ? ON : OFF, true);
+    if (pClient->connected())
+    {
+        String r = String(device) + String("/light/") + String(light) + String("/state");
+        char charArray[r.length() + 1];
+        r.toCharArray(charArray, sizeof(charArray));
+
+        pClient->publish(charArray, pDigitalOutput->GetValue() ? ON : OFF, true);
+    }
 }

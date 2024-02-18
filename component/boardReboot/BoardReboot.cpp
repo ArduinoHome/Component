@@ -1,26 +1,32 @@
 #include "BoardReboot.h"
 
-BoardReboot::BoardReboot() {}
 
-BoardReboot::BoardReboot(PubSubClient *mqttPtr, const char *deviceName)
+BoardReboot::BoardReboot(PubSubClient *mqttPtr, const char *deviceName) : device(deviceName)
 {
     this->mqttClient = mqttPtr;
-    snprintf(this->topicCmd, sizeof(this->topicCmd), "%s/reboot", deviceName);
+
+    // snprintf(this->topicCmd, sizeof("/reboot") + sizeof(deviceName) , "%s/reboot", deviceName);
 }
 
-void BoardReboot::loop(){}
+void BoardReboot::loop() {}
 
 void BoardReboot::reconnected()
 {
     if (mqttClient->connected())
     {
-        mqttClient->subscribe(topicCmd);
+        String r = String(device) + String("/reboot");
+        char charArray[r.length() + 1];
+        r.toCharArray(charArray, sizeof(charArray));
+        mqttClient->subscribe(charArray);
     }
 }
 
 void BoardReboot::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    if (strcmp(topic, topicCmd) == 0)
+    String r = String(device) + String("/reboot");
+    char charArray[r.length() + 1];
+    r.toCharArray(charArray, sizeof(charArray));
+    if (strcmp(topic, charArray) == 0)
     {
         Reboot();
     }
