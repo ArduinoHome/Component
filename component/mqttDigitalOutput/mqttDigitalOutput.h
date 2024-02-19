@@ -15,8 +15,6 @@ private:
     const char *name;
     DigitalOutput *pDigitalOutput;
     void publishStatus();
-    char* getTpCmd();
-    char* getTpState();
     
 
 public:
