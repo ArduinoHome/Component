@@ -16,6 +16,7 @@ void BoardDigitalOutput::setup()
 
 void BoardDigitalOutput::loop()
 {
+    changed = false;
     if (reverseOutput)
         digitalWrite(pinNumber, !value);
     else
@@ -29,20 +30,27 @@ bool BoardDigitalOutput::GetValue()
 
 void BoardDigitalOutput::SetValue(bool newValue)
 {
+    if (value != newValue)
+        changed = true;
     value = newValue;
 }
 
 void BoardDigitalOutput::SetOn()
 {
+    if (value != true)
+        changed = true;
     value = true;
 }
 
 void BoardDigitalOutput::SetOff()
 {
+    if (value != false)
+        changed = true;
     value = false;
 }
 
 void BoardDigitalOutput::Toggle()
 {
+    changed = true;
     value = !value;
 }

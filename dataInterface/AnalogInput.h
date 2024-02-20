@@ -5,7 +5,7 @@ class AnalogInput
 {
 public:
     virtual int GetValue();
-
+    virtual bool HasChanged();
 
 };
 

@@ -5,7 +5,7 @@ class FloatInput
 {
 public:
     virtual double GetValue();
-
+    virtual bool HasChanged();
 
 };
 

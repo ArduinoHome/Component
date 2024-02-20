@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include "DigitalInput.h"
 
-//typedef void (*EventHandler)();
 
 class BoardDigitalInput : public DigitalInput
 {
@@ -13,7 +12,6 @@ private:
     const byte bounceFilter;
     const byte pinNumber;
     bool value;
-    //void (*onChangeCallback)(bool);
     bool changed;
     
 
@@ -22,7 +20,6 @@ public:
     void setup();
     void loop();
     bool GetValue();
-    //void OnChange(void (*callback)(bool));
     bool HasChanged();
 };
 

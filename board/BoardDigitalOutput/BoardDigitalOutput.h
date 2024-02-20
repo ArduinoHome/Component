@@ -10,7 +10,7 @@ private:
     const bool reverseOutput;
     const byte pinNumber;
     bool value;
-    
+    bool changed;
 
 public:
     //BoardDigitalOutput(){};
@@ -22,6 +22,7 @@ public:
     void SetOn();
     void SetOff();
     void Toggle();
+    bool HasChanged();
 
 };
 
