@@ -1,33 +1,39 @@
 #include "OneWireTemp.h"
 
-OneWireTemp::OneWireTemp() {}
+#define SAMPLESCOUNT 10
 
-OneWireTemp::OneWireTemp(OneWire *busOnewire, uint8_t deviceId = 0)
+OneWireTemp::OneWireTemp(OneWire *busOnewire, const uint8_t deviceId = 0) : id(deviceId)
 {
-    this->deviceId = deviceId;
     dallasTemperatureSensor = DallasTemperature(busOnewire);
+}
+
+void OneWireTemp::setup()
+{
     dallasTemperatureSensor.begin();
-    timerScan.Start(1000, true);
+    timerScan.Start(60000, true);
     dallasTemperatureSensor.requestTemperatures();
-    value = dallasTemperatureSensor.getTempCByIndex(deviceId);
+    value = dallasTemperatureSensor.getTempCByIndex(id);
 }
 
 void OneWireTemp::loop()
 {
+    changed = false;
     if (timerScan.Elapsed())
     {
         dallasTemperatureSensor.requestTemperatures();
-        double a = 0;
-
-        for (int samples = 0; samples < 10; samples++)
-        {
-            a += dallasTemperatureSensor.getTempCByIndex(deviceId);
-        }
-        value = a / 10;
+        double newvalue = dallasTemperatureSensor.getTempCByIndex(id);
+        if (newvalue != value)
+            changed = true;
+        value = newvalue;
     }
 }
 
 double OneWireTemp::GetValue()
 {
     return value;
+}
+
+bool OneWireTemp::HasChanged()
+{
+    return changed;
 }
