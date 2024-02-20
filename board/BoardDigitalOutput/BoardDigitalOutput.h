@@ -13,7 +13,6 @@ private:
     bool changed;
 
 public:
-    //BoardDigitalOutput(){};
     BoardDigitalOutput(const byte pin,const bool reverse);
     void setup();
     void loop();
