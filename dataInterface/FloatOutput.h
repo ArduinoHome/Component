@@ -6,6 +6,7 @@ class FloatOutput
 public:
     virtual double GetValue();
     virtual void SetValue(double value);
+    virtual bool HasChanged();
 };
 
 #endif

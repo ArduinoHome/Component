@@ -7,20 +7,21 @@
 class BoardDigitalOutput : public DigitalOutput
 {
 private:
-    bool reverse;
-    byte pin;
+    const bool reverseOutput;
+    const byte pinNumber;
     bool value;
-    
+    bool changed;
 
 public:
-    BoardDigitalOutput();
-    BoardDigitalOutput(byte pin,bool reverse);
+    BoardDigitalOutput(const byte pin,const bool reverse);
+    void setup();
     void loop();
     bool GetValue();
-    void SetValue(bool value);
+    void SetValue(bool newValue);
     void SetOn();
     void SetOff();
     void Toggle();
+    bool HasChanged();
 
 };
 

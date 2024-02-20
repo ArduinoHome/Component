@@ -7,6 +7,7 @@ public:
     virtual int GetValue();
 
     virtual void SetValue(int value);
+    virtual bool HasChanged();
 
 };
 

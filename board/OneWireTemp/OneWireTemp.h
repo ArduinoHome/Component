@@ -10,18 +10,18 @@
 class OneWireTemp : public FloatInput
 {
 private:
-    OneWire busOnewire;
     DallasTemperature dallasTemperatureSensor;
-    Timer timerScan;
+    Timer timerScan = Timer();
     double value;
-    uint8_t deviceId;
+    bool changed = false;
+    const uint8_t id;
 
 public:
-    OneWireTemp();
-    OneWireTemp(uint8_t pinOneWire,uint8_t deviceId =0);
+    OneWireTemp(OneWire *busOnewire, const uint8_t deviceId = 0);
+    void setup();
     void loop();
     double GetValue();
-
+    bool HasChanged();
 };
 
 #endif

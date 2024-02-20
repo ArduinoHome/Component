@@ -9,6 +9,7 @@ public:
     virtual void SetOn();
     virtual void SetOff();
     virtual void Toggle();
+    virtual bool HasChanged();
 };
 
 #endif

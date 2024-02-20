@@ -1,26 +1,25 @@
-#ifndef LIGHT_H
-#define LIGHT_H
+#ifndef MQTTDIGITALINPUT_H
+#define MQTTDIGITALINPUT_H
 
 #include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
 #include "DigitalInput.h"
-#include "DigitalOutput.h"
 
 
-class Light
+
+class mqttDigitalInput
 {
 private:
     PubSubClient *pClient;
     const char *device;
-    const char *light;
+    const char *name;
     DigitalInput *pDigitalInput;
-    DigitalOutput *pDigitalOutput;
-    void publishLightStatus();
+    void publishStatus();
     
 
 public:
-    Light(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInput *input, DigitalOutput *output);
+    mqttDigitalInput(PubSubClient *client, const char *deviceName,const char *digitalInputName, DigitalInput *input);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);
