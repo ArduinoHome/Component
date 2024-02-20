@@ -54,3 +54,8 @@ void BoardDigitalOutput::Toggle()
     changed = true;
     value = !value;
 }
+
+bool BoardDigitalOutput::HasChanged()
+{
+    return changed;
+}
