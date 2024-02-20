@@ -46,7 +46,7 @@ boolean reconnect()
 {
   if (client.connect(NAME_ARDUINO, MQTT_USERNAME, MQTT_PASSWORD))
   {
-    client.publish(VERSION, "${board-name}/version", true);
+    client.publish(VERSION, "${board-name}/board/current-version", true);
     boardReboot.reconnected();
     ${reconnected}
   }
