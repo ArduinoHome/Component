@@ -1,15 +1,16 @@
 #include "BoardAnalogOutput.h"
 
-BoardAnalogOutput ::BoardAnalogOutput() {}
+BoardAnalogOutput::BoardAnalogOutput(const byte pin) : pinNumber(pin) {}
 
-BoardAnalogOutput::BoardAnalogOutput(byte pin)
+void BoardAnalogOutput::setup(int defaultValue = 0)
 {
-    this->pin = pin;
+    analogWrite(pinNumber, defaultValue);
 }
 
 void BoardAnalogOutput::loop()
 {
-    analogWrite(pin, value);
+    analogWrite(pinNumber, value);
+    changed = false;
 }
 
 int BoardAnalogOutput::GetValue()
@@ -17,7 +18,14 @@ int BoardAnalogOutput::GetValue()
     return value;
 }
 
-void BoardAnalogOutput::SetValue(int value)
+void BoardAnalogOutput::SetValue(int newValue)
 {
-    this->value = value;
+    if (newValue != value)
+        changed = true;
+    value = changed;
+}
+
+bool BoardAnalogOutput::HasChanged()
+{
+    return changed;
 }
