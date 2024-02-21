@@ -1,26 +1,26 @@
 #include "BoardAnalogInput.h"
 
-BoardAnalogInput::BoardAnalogInput(const byte pin, const byte readTimes) : pinNumber(pin), bounceFilter(readTimes)
+BoardAnalogInput::BoardAnalogInput(const byte pin, const byte maxBounce) : pinNumber(pin), bounceFilter(maxBounce)
 {
 }
 
 void BoardAnalogInput::setup()
 {
-    value = analogRead(pin);
+    value = analogRead(pinNumber);
 }
 
 void BoardAnalogInput::loop()
 {
     changed = false;
-    if (countRead < readTimes)
+    if (count < bounceFilter)
     {
-        sum += analogRead(pin);
-        countRead++;
+        avg += analogRead(pinNumber);
+        count++;
     }
     else
     {
-        int newValue = sum / readTimes;
-        countRead = sum = 0;
+        int newValue = avg / bounceFilter;
+        count = avg = 0;
         if (value != newValue)
             changed = true;
         value = newValue;

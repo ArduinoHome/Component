@@ -8,16 +8,16 @@
 class BoardAnalogInput : public AnalogInput
 {
 private:
-    const byte readTimes;
+    const byte bounceFilter;
     const byte pinNumber;
-    byte bounceFilter;
+    byte count;
     int value;
     bool changed;
-    long rimbalzo;
+    long avg;
 
 
 public:
-    BoardAnalogInput(const byte pin,const byte readTimes);
+    BoardAnalogInput(const byte pin,const byte maxBounce);
     void setup();
     void loop();
     int GetValue();
