@@ -2,9 +2,9 @@
 #define ON "1"
 #define OFF "0"
 
-Light::Light(PubSubClient *mqttPtr, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output) : device(deviceName), light(lightName)
+Light::Light(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output) : device(deviceName), light(lightName)
 {
-    pClient = mqttPtr;
+    pClient = client;
     pDigitalInput = input;
     pDigitalOutput = output;
 }
