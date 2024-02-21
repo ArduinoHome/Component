@@ -1,7 +1,6 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
 #include "DigitalInput.h"

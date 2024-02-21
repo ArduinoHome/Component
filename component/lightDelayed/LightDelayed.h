@@ -1,7 +1,6 @@
 #ifndef LIGHTDELAYED_H
 #define LIGHTDELAYED_H
 
-#include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
 #include "DigitalInput.h"
