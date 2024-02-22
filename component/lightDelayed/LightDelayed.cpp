@@ -52,6 +52,12 @@ void LightDelayed::mqttCallback(char *topic, byte *payload, unsigned int length)
         }
         else if (payload[0] == '0')
             pDigitalOutput->SetOff();
+        else if (payload[0] == 't')
+        {
+            if (pDigitalOutput->GetValue())
+                timer.Start(lightDelay, false);
+            pDigitalOutput->Toggle();
+        }
 
         publishLightStatus();
     }

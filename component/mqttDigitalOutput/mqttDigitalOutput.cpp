@@ -37,6 +37,8 @@ void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int le
             pDigitalOutput->SetOn();
         else if (payload[0] == '0')
             pDigitalOutput->SetOff();
+        else if (payload[0] == 't')
+            pDigitalOutput->Toggle();
 
         publishStatus();
     }

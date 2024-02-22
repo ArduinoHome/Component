@@ -42,6 +42,8 @@ void Light::mqttCallback(char *topic, byte *payload, unsigned int length)
             pDigitalOutput->SetOn();
         else if (payload[0] == '0')
             pDigitalOutput->SetOff();
+        else if (payload[0] == 't')
+            pDigitalOutput->Toggle();
 
         publishLightStatus();
     }
