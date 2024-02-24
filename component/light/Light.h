@@ -1,29 +1,25 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
-#include <PubSubClient.h>
 #include <Arduino.h>
 #include "DigitalInput.h"
 #include "DigitalOutput.h"
 
-
 class Light
 {
 private:
-    PubSubClient *pClient;
-    const char *device;
-    const char *light;
+    const bool button;
+    bool changed = false;
     DigitalInput *pDigitalInput;
     DigitalOutput *pDigitalOutput;
-    void publishLightStatus();
-    
 
 public:
-    Light(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInput *input, DigitalOutput *output);
+    Light(DigitalInput *input, DigitalOutput *output, const bool isButton = true);
     void loop();
-    void reconnected();
-    void mqttCallback(char *topic, byte *payload, unsigned int length);
-
+    bool GetValue();
+    bool HasChanged();
+    void SetValue(bool newValue);
+    void Toggle();
 };
 
 #endif
