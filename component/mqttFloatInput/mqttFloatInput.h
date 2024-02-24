@@ -1,7 +1,6 @@
 #ifndef MQTTFLOATINPUT_H
 #define MQTTFLOATINPUT_H
 
-#include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
 #include "FloatInput.h"

@@ -1,29 +1,38 @@
 #include "BoardAnalogInput.h"
 
-BoardAnalogInput ::BoardAnalogInput() {}
-
-BoardAnalogInput::BoardAnalogInput(byte pin, byte readTimes)
+BoardAnalogInput::BoardAnalogInput(const byte pin, const byte maxBounce) : pinNumber(pin), bounceFilter(maxBounce)
 {
-    this->readTimes = readTimes;
-    value = analogRead(pin);
+}
+
+void BoardAnalogInput::setup()
+{
+    value = analogRead(pinNumber);
 }
 
 void BoardAnalogInput::loop()
 {
-
-    if (countRead < readTimes)
+    changed = false;
+    if (count < bounceFilter)
     {
-        sum += (unsigned long)analogRead(pin); // Legge la Att_Pos in cui si trova il carro
-        countRead++;
+        avg += analogRead(pinNumber);
+        count++;
     }
     else
     {
-        value = sum / readTimes;
-        countRead = sum = 0;
+        int newValue = avg / bounceFilter;
+        count = avg = 0;
+        if (value != newValue)
+            changed = true;
+        value = newValue;
     }
 }
 
 int BoardAnalogInput::GetValue()
 {
     return value;
+}
+
+bool BoardAnalogInput::HasChanged()
+{
+    return changed;
 }

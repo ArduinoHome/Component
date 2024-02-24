@@ -7,18 +7,21 @@
 
 class BoardAnalogInput : public AnalogInput
 {
+private:
+    const byte bounceFilter;
+    const byte pinNumber;
+    byte count;
+    int value;
+    bool changed;
+    long avg;
+
+
 public:
-    BoardAnalogInput();
-    BoardAnalogInput(byte pin,byte readTimes);
+    BoardAnalogInput(const byte pin,const byte maxBounce);
+    void setup();
     void loop();
     int GetValue();
-
-private:
-    byte readTimes;
-    byte pin;
-    byte countRead;
-    int value;
-    unsigned long sum;
+    bool HasChanged();
 };
 
 #endif

@@ -1,7 +1,6 @@
 #ifndef MQTTDIGITALINPUT_H
 #define MQTTDIGITALINPUT_H
 
-#include <Ethernet.h>
 #include <PubSubClient.h>
 #include <Arduino.h>
 #include "DigitalInput.h"

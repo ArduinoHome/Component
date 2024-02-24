@@ -2,59 +2,75 @@
 #define ON "1"
 #define OFF "0"
 
-LightDelayed::LightDelayed() {}
-
-LightDelayed::LightDelayed(PubSubClient *mqttPtr, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output, unsigned long delay)
+LightDelayed::LightDelayed(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output, const unsigned long delay) : device(deviceName), light(lightName), lightDelay(delay)
 {
-    this->delay = delay;
-    this->mqttClient = mqttPtr;
-    snprintf(this->topicCmd, sizeof(this->topicCmd), "%s/light/%s/cmd", deviceName, lightName);
-    snprintf(this->topicStatus, sizeof(this->topicStatus), "%s/light/%s/status", deviceName, lightName);
-    this->input = input;
+    pClient = client;
+    pDigitalInput = input;
+    pDigitalOutput = output;
 }
 
 void LightDelayed::loop()
 {
-    if (input->GetValue() && !MemState)
+    if (pDigitalInput->HasChanged() && pDigitalInput->GetValue())
     {
-        output->SetOn();
-        publishLigtStatus();
-        timer.Start(delay, true);
+        pDigitalOutput->SetOn();
+        publishLightStatus();
+        timer.Start(lightDelay, false);
     }
-    MemState = input->GetValue();
 
     if (timer.Elapsed())
-        output->SetOff();
-    
+    {
+        pDigitalOutput->SetOff();
+        publishLightStatus();
+    }
 }
 
 void LightDelayed::reconnected()
 {
-    if (mqttClient->connected())
-    {
-        mqttClient->subscribe(topicCmd);
-        publishLigtStatus();
-    }
+    String r = String(device) + String("/light/") + String(light) + String("/command");
+    char charArray[r.length() + 1];
+    r.toCharArray(charArray, sizeof(charArray));
+
+    if (pClient->connected())
+        pClient->subscribe(charArray);
+
+    publishLightStatus();
 }
 
 void LightDelayed::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    if (strcmp(topic, topicCmd) == 0)
+    String r = String(device) + String("/light/") + String(light) + String("/command");
+    char charArray[r.length() + 1];
+    r.toCharArray(charArray, sizeof(charArray));
+
+    if (strcmp(topic, charArray) == 0)
     {
         if (payload[0] == '1')
         {
-            timer.Start(delay, true);
-            output->SetOn();
+            timer.Start(lightDelay, false);
+            pDigitalOutput->SetOn();
         }
         else if (payload[0] == '0')
-            output->SetOff();
+            pDigitalOutput->SetOff();
+        else if (payload[0] == 't')
+        {
+            if (pDigitalOutput->GetValue())
+                timer.Start(lightDelay, false);
+            pDigitalOutput->Toggle();
+        }
 
-        publishLigtStatus();
+        publishLightStatus();
     }
 }
 
-void LightDelayed::publishLigtStatus()
+void LightDelayed::publishLightStatus()
 {
-    if (mqttClient->connected())
-        mqttClient->publish(topicStatus, output->GetValue() ? ON : OFF, true);
+    if (pClient->connected())
+    {
+        String r = String(device) + String("/light/") + String(light) + String("/state");
+        char charArray[r.length() + 1];
+        r.toCharArray(charArray, sizeof(charArray));
+
+        pClient->publish(charArray, pDigitalOutput->GetValue() ? ON : OFF, true);
+    }
 }

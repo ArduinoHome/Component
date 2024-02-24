@@ -7,16 +7,18 @@
 
 class BoardAnalogOutput : public AnalogOutput
 {
+private:
+    const byte pinNumber;
+    bool changed;
+    int value;
+
 public:
-    BoardAnalogOutput();
-    BoardAnalogOutput(byte pin);
+    BoardAnalogOutput(const byte pin);
+    void setup(int defaultValue=0);
     void loop();
     int GetValue();
-    void SetValue(int value);
-
-private:
-    byte pin;
-    int value;
+    void SetValue(int newValue);
+    bool HasChanged();
 };
 
 #endif
