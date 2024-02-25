@@ -2,27 +2,16 @@
 #define ON "1"
 #define OFF "0"
 
-mqttLightDelayed::mqttLightDelayed(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output, const unsigned long delay) : device(deviceName), light(lightName), lightDelay(delay)
+mqttLightDelayed::mqttLightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInput *input, DigitalOutput *output, const unsigned long delay, const bool isButton = true) : device(deviceName), light(lightName), LightDelayed(input,output,delay,isButton)
 {
     pClient = client;
-    pDigitalInput = input;
-    pDigitalOutput = output;
 }
 
 void mqttLightDelayed::loop()
 {
-    if (pDigitalInput->HasChanged() && pDigitalInput->GetValue())
-    {
-        pDigitalOutput->SetOn();
+    LightDelayed::loop();
+    if (LightDelayed::HasChanged())
         publishLightStatus();
-        timer.Start(lightDelay, false);
-    }
-
-    if (timer.Elapsed())
-    {
-        pDigitalOutput->SetOff();
-        publishLightStatus();
-    }
 }
 
 void mqttLightDelayed::reconnected()
@@ -46,18 +35,12 @@ void mqttLightDelayed::mqttCallback(char *topic, byte *payload, unsigned int len
     if (strcmp(topic, charArray) == 0)
     {
         if (payload[0] == '1')
-        {
-            timer.Start(lightDelay, false);
-            pDigitalOutput->SetOn();
-        }
+            LightDelayed::SetValue(true);
         else if (payload[0] == '0')
-            pDigitalOutput->SetOff();
+            LightDelayed::SetValue(false);
         else if (payload[0] == 't')
-        {
-            if (pDigitalOutput->GetValue())
-                timer.Start(lightDelay, false);
-            pDigitalOutput->Toggle();
-        }
+            LightDelayed::Toggle();
+        
 
         publishLightStatus();
     }
@@ -71,6 +54,6 @@ void mqttLightDelayed::publishLightStatus()
         char charArray[r.length() + 1];
         r.toCharArray(charArray, sizeof(charArray));
 
-        pClient->publish(charArray, pDigitalOutput->GetValue() ? ON : OFF, true);
+        pClient->publish(charArray, LightDelayed::GetValue() ? ON : OFF, true);
     }
 }

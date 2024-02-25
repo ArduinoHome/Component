@@ -1,29 +1,21 @@
 #ifndef LIGHTDELAYED_H
 #define LIGHTDELAYED_H
 
-#include <PubSubClient.h>
-#include <Arduino.h>
-#include "DigitalInput.h"
-#include "DigitalOutput.h"
+
+#include "Light.h"
 #include "Timer.h"
 
-class LightDelayed
+class LightDelayed : public Light
 {
 private:
     unsigned long lightDelay;
-    PubSubClient *pClient;
-    const char *device;
-    const char *light;
-    DigitalInput *pDigitalInput;
-    DigitalOutput *pDigitalOutput;
     Timer timer;
-    void publishLightStatus();
 
 public:
-    LightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInput *input, DigitalOutput *output, const unsigned long delay);
+    LightDelayed(DigitalInput *input, DigitalOutput *output, const unsigned long delay, const bool isButton = true);
     void loop();
-    void reconnected();
-    void mqttCallback(char *topic, byte *payload, unsigned int length);
+    void SetValue(bool newValue);
+    void Toggle();
 };
 
 #endif
