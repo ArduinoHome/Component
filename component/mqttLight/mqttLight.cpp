@@ -56,23 +56,3 @@ void mqttLight::publishLightStatus()
         pClient->publish(charArray, Light::GetValue() ? ON : OFF, true);
     }
 }
-
-bool mqttLight::GetValue()
-{
-    return Light::GetValue();
-}
-
-bool mqttLight::HasChanged()
-{
-    return Light::HasChanged();
-}
-
-void mqttLight::SetValue(bool newValue)
-{
-    Light::SetValue(newValue);
-}
-
-void mqttLight::Toggle()
-{
-    Light::Toggle();
-}

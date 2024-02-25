@@ -2,10 +2,7 @@
 #define MQTTLIGHT_H
 
 #include <PubSubClient.h>
-#include <Arduino.h>
-#include "Light.h"
-#include "DigitalInput.h"
-#include "DigitalOutput.h"
+#include "Light.h
 
 class mqttLight : public Light
 {
@@ -20,10 +17,6 @@ public:
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);
-    bool GetValue();
-    bool HasChanged();
-    void SetValue(bool newValue);
-    void Toggle();
 };
 
 #endif
