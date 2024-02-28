@@ -16,7 +16,7 @@ void mqttLightDelayed::loop()
 
 void mqttLightDelayed::reconnected()
 {
-    String r = String(device) + String("/light/") + String(light) + String("/command");
+    String r = String(device) + String(F("/light/")) + String(light) + String(F("/command"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 
@@ -28,7 +28,7 @@ void mqttLightDelayed::reconnected()
 
 void mqttLightDelayed::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String("/light/") + String(light) + String("/command");
+    String r = String(device) + String(F("/light/")) + String(light) + String(F("/command"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 
@@ -50,7 +50,7 @@ void mqttLightDelayed::publishLightStatus()
 {
     if (pClient->connected())
     {
-        String r = String(device) + String("/light/") + String(light) + String("/state");
+        String r = String(device) + String(F("/light/")) + String(light) + String(F("/state"));
         char charArray[r.length() + 1];
         r.toCharArray(charArray, sizeof(charArray));
 

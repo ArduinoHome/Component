@@ -25,7 +25,7 @@ void mqttFloatInput::publishStatus()
 {
     if (pClient->connected())
     {
-        String t = String(device) + String("/floatInput/") + String(name) + String("/state");
+        String t = String(device) + String(F("/floatInput/")) + String(name) + String(F("/state"));
         char topicArray[t.length() + 1];
         t.toCharArray(topicArray, sizeof(topicArray));
 

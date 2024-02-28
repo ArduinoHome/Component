@@ -8,14 +8,11 @@ mqttDigitalOutput::mqttDigitalOutput(PubSubClient *client, const char *deviceNam
     pDigitalOutput = output;
 }
 
-void mqttDigitalOutput::loop()
-{
-
-}
+void mqttDigitalOutput::loop(){}
 
 void mqttDigitalOutput::reconnected()
 {
-    String r = String(device) + String("/digitalOutput/") + String(name) + String("/command");
+    String r = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 
@@ -27,7 +24,7 @@ void mqttDigitalOutput::reconnected()
 
 void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String("/digitalOutput/") + String(name) + String("/command");
+    String r = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 
@@ -37,8 +34,6 @@ void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int le
             pDigitalOutput->SetOn();
         else if (payload[0] == '0')
             pDigitalOutput->SetOff();
-        else if (payload[0] == 't')
-            pDigitalOutput->Toggle();
 
         publishStatus();
     }
@@ -48,7 +43,7 @@ void mqttDigitalOutput::publishStatus()
 {
     if (pClient->connected())
     {
-        String r = String(device) + String("/digitalOutput/") + String(name) + String("/state");
+        String r = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/state"));
         char charArray[r.length() + 1];
         r.toCharArray(charArray, sizeof(charArray));
 
