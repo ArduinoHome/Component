@@ -25,7 +25,7 @@ long lastReconnectAttempt = 0;
 IPAddress server(${mqtt-server});
 EthernetClient ethClient;
 PubSubClient client(ethClient);
-BoardReboot boardReboot;
+BoardReboot boardReboot= BoardReboot(&client, NAME_ARDUINO);
 
 ${declaration-component}
 
@@ -33,7 +33,6 @@ void setup()
 {
   ${init}
 
-  boardReboot = BoardReboot(&client, NAME_ARDUINO);
   Ethernet.begin(mac);
   delay(3000);
   client.setServer(server, 1883);
