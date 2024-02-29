@@ -13,10 +13,11 @@ private:
     const byte pinNumber;
     bool value;
     bool changed;
+    const bool pPevert=false;
     
 
 public:
-    BoardDigitalInput(const byte pin,const byte maxBounce);
+    BoardDigitalInput(const byte pin,const byte maxBounce, const bool revert=false);
     void setup();
     void loop();
     bool GetValue();

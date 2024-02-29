@@ -29,3 +29,15 @@ bool BoardAnalogOutput::HasChanged()
 {
     return changed;
 }
+
+void BoardAnalogOutput::Increment(int incrValue = 1)
+{
+    changed = true;
+    value = value + incrValue;
+}
+
+void BoardAnalogOutput::Decrement(int decrValue = 1)
+{
+    changed = true;
+    value = value - decrValue;
+}

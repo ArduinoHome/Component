@@ -19,6 +19,8 @@ public:
     int GetValue();
     void SetValue(int newValue);
     bool HasChanged();
+    void Increment(int incrValue = 1);
+    void Decrement(int decrValue = 1);
 };
 
 #endif
