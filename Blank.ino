@@ -18,7 +18,7 @@ ${include-component}
 
 #define DIGITALBOUNCE ${digital-bounce}
 
-void (*Reboot)(void) = 0;
+
 
 byte mac[] = {${mac-address}};
 long lastReconnectAttempt = 0;
