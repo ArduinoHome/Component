@@ -33,7 +33,7 @@ void setup()
 {
   ${init}
 
-  boardReboot = BoardReboot(&client, NOME_ARDUINO);
+  boardReboot = BoardReboot(&client, NAME_ARDUINO);
   Ethernet.begin(mac);
   delay(3000);
   client.setServer(server, 1883);
