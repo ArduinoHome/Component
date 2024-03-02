@@ -4,6 +4,7 @@ BoardAnalogOutput::BoardAnalogOutput(const byte pin) : pinNumber(pin) {}
 
 void BoardAnalogOutput::setup(int defaultValue = 0)
 {
+    pinMode(pinNumber,OUTPUT);
     analogWrite(pinNumber, defaultValue);
 }
 
@@ -22,7 +23,7 @@ void BoardAnalogOutput::SetValue(int newValue)
 {
     if (newValue != value)
         changed = true;
-    value = changed;
+    value = newValue;
 }
 
 bool BoardAnalogOutput::HasChanged()
