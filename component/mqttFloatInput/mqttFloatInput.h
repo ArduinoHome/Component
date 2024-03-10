@@ -3,7 +3,7 @@
 
 #include <PubSubClient.h>
 #include <Arduino.h>
-#include "FloatInput.h"
+#include "FloatInputInterface.h"
 
 
 
@@ -13,12 +13,12 @@ private:
     PubSubClient *pClient;
     const char *device;
     const char *name;
-    FloatInput *pFloatInput;
+    FloatInputInterface *pFloatInput;
     void publishStatus();
     
 
 public:
-    mqttFloatInput(PubSubClient *client, const char *deviceName,const char *floatInputName, FloatInput *input);
+    mqttFloatInput(PubSubClient *client, const char *deviceName,const char *floatInputName, FloatInputInterface *input);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

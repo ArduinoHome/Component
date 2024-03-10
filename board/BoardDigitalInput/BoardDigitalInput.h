@@ -2,10 +2,10 @@
 #define BOARDDIGITALINPUT_H
 
 #include <Arduino.h>
-#include "DigitalInput.h"
+#include "DigitalInputInterface.h"
 
 
-class BoardDigitalInput : public DigitalInput
+class BoardDigitalInput : public DigitalInputInterface
 {
 private:
     byte rimbalzo;

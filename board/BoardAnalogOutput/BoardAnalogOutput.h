@@ -2,10 +2,10 @@
 #define BOARDANALOGOUTPUT_H
 
 #include <Arduino.h>
-#include "AnalogOutput.h"
+#include "AnalogOutputInterface.h"
 
 
-class BoardAnalogOutput : public AnalogOutput
+class BoardAnalogOutput : public AnalogOutputInterface
 {
 private:
     const byte pinNumber;

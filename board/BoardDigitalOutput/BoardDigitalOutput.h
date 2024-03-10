@@ -2,9 +2,9 @@
 #define BOARDDIGITALOUTPUT_H
 
 #include <Arduino.h>
-#include "DigitalOutput.h"
+#include "DigitalOutputInterface.h"
 
-class BoardDigitalOutput : public DigitalOutput
+class BoardDigitalOutput : public DigitalOutputInterface
 {
 private:
     const bool reverseOutput;

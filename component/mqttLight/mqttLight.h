@@ -13,7 +13,7 @@ private:
     void publishLightStatus();
 
 public:
-    mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output, const bool isButton = true);
+    mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

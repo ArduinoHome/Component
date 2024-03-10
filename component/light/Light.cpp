@@ -1,6 +1,6 @@
 #include "Light.h"
 
-Light::Light(DigitalInput *input, DigitalOutput *output, const bool isButton = true) : button(isButton)
+Light::Light(DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true) : button(isButton)
 {
     pDigitalInput = input;
     pDigitalOutput = output;

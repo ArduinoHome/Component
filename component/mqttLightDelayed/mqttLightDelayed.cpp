@@ -2,7 +2,7 @@
 #define ON "1"
 #define OFF "0"
 
-mqttLightDelayed::mqttLightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInput *input, DigitalOutput *output, const unsigned long delay, const bool isButton = true) : device(deviceName), light(lightName), LightDelayed(input,output,delay,isButton)
+mqttLightDelayed::mqttLightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true) : device(deviceName), light(lightName), LightDelayed(input,output,delay,isButton)
 {
     pClient = client;
 }

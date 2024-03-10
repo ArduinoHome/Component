@@ -13,7 +13,7 @@ private:
     void publishLightStatus();
 
 public:
-    mqttLightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInput *input, DigitalOutput *output, const unsigned long delay, const bool isButton = true);
+    mqttLightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

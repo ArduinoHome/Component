@@ -1,7 +1,7 @@
-#ifndef ANALOGOUTPUT_H
-#define ANALOGOUTPUT_H
+#ifndef ANALOGOUTPUTINTERFACE_H
+#define ANALOGOUTPUTINTERFACE_H
 
-class AnalogOutput
+class AnalogOutputInterface
 {
 public:
     virtual int GetValue();

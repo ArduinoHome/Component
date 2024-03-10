@@ -1,7 +1,7 @@
-#ifndef FLOATOUTPUT_H
-#define FLOATOUTPUT_H
+#ifndef FLOATOUTPUTINTERFACE_H
+#define FLOATOUTPUTINTERFACE_H
 
-class FloatOutput
+class FloatOutputInterface
 {
 public:
     virtual double GetValue();

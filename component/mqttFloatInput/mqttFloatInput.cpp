@@ -1,7 +1,7 @@
 #include "mqttFloatInput.h"
 
 
-mqttFloatInput::mqttFloatInput(PubSubClient *mqttPtr, const char *deviceName, const char *floatInputName, FloatInput *input) : device(deviceName), name(floatInputName)
+mqttFloatInput::mqttFloatInput(PubSubClient *mqttPtr, const char *deviceName, const char *floatInputName, FloatInputInterface *input) : device(deviceName), name(floatInputName)
 {
     pClient = mqttPtr;
     pFloatInput = input;

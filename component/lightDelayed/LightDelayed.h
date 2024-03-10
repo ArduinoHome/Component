@@ -12,7 +12,7 @@ private:
     Timer timer;
 
 public:
-    LightDelayed(DigitalInput *input, DigitalOutput *output, const unsigned long delay, const bool isButton = true);
+    LightDelayed(DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true);
     void loop();
     void SetValue(bool newValue);
     void Toggle();

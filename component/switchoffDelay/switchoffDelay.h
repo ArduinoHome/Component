@@ -2,7 +2,7 @@
 #define SWITCHOFFDELAY_H
 
 
-#include "DigitalOutput.h"
+#include "DigitalOutputInterface.h"
 #include "Timer.h"
 
 class switchoffDelay
@@ -10,10 +10,10 @@ class switchoffDelay
 private:
     unsigned long pDelay;
     Timer timer;
-    DigitalOutput *pOutput;
+    DigitalOutputInterface *pOutput;
 
 public:
-    switchoffDelay(DigitalOutput *output, const unsigned long delay);
+    switchoffDelay(DigitalOutputInterface *output, const unsigned long delay);
     void loop();
     void SetValue(bool newValue);
     void Toggle();

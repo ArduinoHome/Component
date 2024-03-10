@@ -3,7 +3,7 @@
 
 #include <PubSubClient.h>
 #include <Arduino.h>
-#include "DigitalInput.h"
+#include "DigitalInputInterface.h"
 
 
 
@@ -13,12 +13,12 @@ private:
     PubSubClient *pClient;
     const char *device;
     const char *name;
-    DigitalInput *pDigitalInput;
+    DigitalInputInterface *pDigitalInput;
     void publishStatus();
     
 
 public:
-    mqttDigitalInput(PubSubClient *client, const char *deviceName,const char *digitalInputName, DigitalInput *input);
+    mqttDigitalInput(PubSubClient *client, const char *deviceName,const char *digitalInputName, DigitalInputInterface *input);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

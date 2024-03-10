@@ -5,9 +5,9 @@
 #include <DallasTemperature.h>
 #include "Timer.h"
 
-#include "FloatInput.h"
+#include "FloatInputInterface.h"
 
-class OneWireTemp : public FloatInput
+class OneWireTemp : public FloatInputInterface
 {
 private:
     DallasTemperature dallasTemperatureSensor;

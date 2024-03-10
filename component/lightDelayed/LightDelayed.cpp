@@ -1,6 +1,6 @@
 #include "LightDelayed.h"
 
-LightDelayed::LightDelayed(DigitalInput *input, DigitalOutput *output, const unsigned long delay, const bool isButton = true) : lightDelay(delay), Light(input, output, isButton)
+LightDelayed::LightDelayed(DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true) : lightDelay(delay), Light(input, output, isButton)
 {
 }
 

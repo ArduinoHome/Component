@@ -1,6 +1,6 @@
 #include "switchoffDelay.h"
 
-switchoffDelay::switchoffDelay(DigitalOutput *output, const unsigned long delay) : pDelay(delay),pOutput(output)
+switchoffDelay::switchoffDelay(DigitalOutputInterface *output, const unsigned long delay) : pDelay(delay),pOutput(output)
 {
 }
 
