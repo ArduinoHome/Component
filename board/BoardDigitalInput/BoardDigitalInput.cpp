@@ -1,6 +1,6 @@
 #include "BoardDigitalInput.h"
 
-BoardDigitalInput::BoardDigitalInput(byte pin, byte maxBounce, const bool revert = false) : pinNumber(pin), bounceFilter(maxBounce), pPevert(revert)
+BoardDigitalInput::BoardDigitalInput(byte pin, byte maxBounce, const bool revert = false) : pinNumber(pin), bounceFilter(maxBounce), pRevert(revert)
 {
 }
 
@@ -37,7 +37,7 @@ void BoardDigitalInput::loop()
 
 bool BoardDigitalInput::GetValue()
 {
-    if (!pPevert)
+    if (!pRevert)
         return value;
     else
         return !value;

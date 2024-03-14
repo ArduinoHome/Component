@@ -13,7 +13,7 @@ private:
     const byte pinNumber;
     bool value;
     bool changed;
-    const bool pPevert=false;
+    const bool pRevert=false;
     
 
 public:
