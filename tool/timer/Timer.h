@@ -16,6 +16,7 @@ public:
     void Start(unsigned long interval, bool reset);
     bool Elapsed();
     void Stop();
+    unsigned long TimeElapsed();
 };
 
 #endif

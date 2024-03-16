@@ -30,3 +30,11 @@ bool Timer::Elapsed()
 
     return result;
 }
+
+unsigned long Timer::TimeElapsed()
+{
+    if (enabled == true)
+        return millis() - startTime;
+    else
+        return 0;
+}

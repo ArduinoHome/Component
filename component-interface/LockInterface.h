@@ -9,7 +9,6 @@ public:
     virtual LockState GetValue();
     virtual bool HasChanged();
     virtual void SetValue(LockCommand newValue);
-    virtual byte GetPosition();
 };
 
 #endif
