@@ -1,7 +1,7 @@
 //#ifndef COVERDATAINTERFACE_H
 //#define COVERDATAINTERFACE_H
 
-enum CoverState
+enum CoverState : byte
 {
     CLOSED,
     OPENING,
@@ -10,7 +10,7 @@ enum CoverState
     CLOSING,
 };
 
-enum CoverCommand
+enum CoverCommand : byte
 {
     CLOSE,
     OPEN,

@@ -1,5 +1,5 @@
 
-enum LockState
+enum LockState : byte
 {
     LOCKED,
     UNLOCKING,
@@ -8,7 +8,7 @@ enum LockState
     JAMMED
 };
 
-enum LockCommand
+enum LockCommand : byte
 {
     LOCK,
     UNLOCK,
