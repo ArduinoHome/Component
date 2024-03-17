@@ -2,7 +2,7 @@
 #define MQTTLIGHT_H
 
 #include <PubSubClient.h>
-#include "Light.h
+#include "Light.h"
 
 class mqttLight : public Light
 {
