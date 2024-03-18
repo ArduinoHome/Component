@@ -12,7 +12,6 @@ enum LockCommand : byte
 {
     LOCK,
     UNLOCK,
-    TOGGLE,
 };
 
 

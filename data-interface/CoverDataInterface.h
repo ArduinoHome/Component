@@ -15,7 +15,6 @@ enum CoverCommand : byte
     CLOSE,
     OPEN,
     PAUSE,
-    TOGGLE,
 };
 
 
