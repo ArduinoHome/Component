@@ -1,6 +1,5 @@
 #ifndef COVERINTERFACE_H
 #define COVERINTERFACE_H
-#include <Arduino.h>
 #include "CoverDataInterface.h"
 
 

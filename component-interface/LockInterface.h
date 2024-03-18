@@ -1,6 +1,5 @@
 #ifndef LOCKINTERFACE_H
 #define LOCKINTERFACE_H
-#include <Arduino.h>
 #include "LockDataInterface.h"
 
 
