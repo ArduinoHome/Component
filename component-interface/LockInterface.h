@@ -1,5 +1,5 @@
-#ifndef COVERINTERFACE_H
-#define COVERINTERFACE_H
+#ifndef LOCKINTERFACE_H
+#define LOCKINTERFACE_H
 #include <Arduino.h>
 #include "LockDataInterface.h"
 
