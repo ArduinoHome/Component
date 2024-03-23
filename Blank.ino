@@ -18,14 +18,14 @@ ${include-component}
 
 #define DIGITALBOUNCE ${digital-bounce}
 
-void (*Reboot)(void) = 0;
+
 
 byte mac[] = {${mac-address}};
 long lastReconnectAttempt = 0;
 IPAddress server(${mqtt-server});
 EthernetClient ethClient;
 PubSubClient client(ethClient);
-BoardReboot boardReboot;
+BoardReboot boardReboot= BoardReboot(&client, NAME_ARDUINO);
 
 ${declaration-component}
 
@@ -33,7 +33,6 @@ void setup()
 {
   ${init}
 
-  boardReboot = BoardReboot(&client, NOME_ARDUINO);
   Ethernet.begin(mac);
   delay(3000);
   client.setServer(server, 1883);
@@ -46,7 +45,7 @@ boolean reconnect()
 {
   if (client.connect(NAME_ARDUINO, MQTT_USERNAME, MQTT_PASSWORD))
   {
-    client.publish(VERSION, "${board-name}/board/current-version", true);
+    client.publish("${board-name}/board/current-version",VERSION, true);
     boardReboot.reconnected();
     ${reconnected}
   }

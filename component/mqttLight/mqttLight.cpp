@@ -2,7 +2,7 @@
 #define ON "1"
 #define OFF "0"
 
-mqttLight::mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output, const bool isButton) : device(deviceName), name(lightName), Light(input, output, isButton)
+mqttLight::mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton) : device(deviceName), name(lightName), Light(input, output, isButton)
 {
     pClient = client;
 }
@@ -16,7 +16,7 @@ void mqttLight::loop()
 
 void mqttLight::reconnected()
 {
-    String r = String(device) + String("/light/") + String(name) + String("/command");
+    String r = String(device) + String(F("/light/")) + String(name) + String(F("/command"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 
@@ -28,7 +28,7 @@ void mqttLight::reconnected()
 
 void mqttLight::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String("/light/") + String(name) + String("/command");
+    String r = String(device) + String(F("/light/")) + String(name) + String(F("/command"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 
@@ -49,30 +49,10 @@ void mqttLight::publishLightStatus()
 {
     if (pClient->connected())
     {
-        String r = String(device) + String("/light/") + String(name) + String("/state");
+        String r = String(device) + String(F("/light/")) + String(name) + String(F("/state"));
         char charArray[r.length() + 1];
         r.toCharArray(charArray, sizeof(charArray));
 
         pClient->publish(charArray, Light::GetValue() ? ON : OFF, true);
     }
-}
-
-bool mqttLight::GetValue()
-{
-    return Light::GetValue();
-}
-
-bool mqttLight::HasChanged()
-{
-    return Light::HasChanged();
-}
-
-void mqttLight::SetValue(bool newValue)
-{
-    Light::SetValue(newValue);
-}
-
-void mqttLight::Toggle()
-{
-    Light::Toggle();
 }

@@ -3,7 +3,7 @@
 
 #include <PubSubClient.h>
 #include <Arduino.h>
-#include "DigitalOutput.h"
+#include "DigitalOutputInterface.h"
 
 
 class mqttDigitalOutput
@@ -12,12 +12,12 @@ private:
     PubSubClient *pClient;
     const char *device;
     const char *name;
-    DigitalOutput *pDigitalOutput;
+    DigitalOutputInterface *pDigitalOutput;
     void publishStatus();
     
 
 public:
-    mqttDigitalOutput(PubSubClient *client, const char *deviceName,const char *digitalOutputName,DigitalOutput *output);
+    mqttDigitalOutput(PubSubClient *client, const char *deviceName,const char *digitalOutputName,DigitalOutputInterface *output);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

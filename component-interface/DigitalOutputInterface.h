@@ -1,7 +1,7 @@
-#ifndef DIGITALOUTPUT_H
-#define DIGITALOUTPUT_H
+#ifndef DIGITALOUTPUTINTERFACE_H
+#define DIGITALOUTPUTINTERFACE_H
 
-class DigitalOutput
+class DigitalOutputInterface
 {
 public:
     virtual bool GetValue();

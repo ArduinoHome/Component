@@ -2,10 +2,7 @@
 #define MQTTLIGHT_H
 
 #include <PubSubClient.h>
-#include <Arduino.h>
 #include "Light.h"
-#include "DigitalInput.h"
-#include "DigitalOutput.h"
 
 class mqttLight : public Light
 {
@@ -16,14 +13,10 @@ private:
     void publishLightStatus();
 
 public:
-    mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInput *input, DigitalOutput *output, const bool isButton = true);
+    mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);
-    bool GetValue();
-    bool HasChanged();
-    void SetValue(bool newValue);
-    void Toggle();
 };
 
 #endif

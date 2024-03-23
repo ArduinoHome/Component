@@ -1,13 +1,13 @@
 #include "BoardDigitalInput.h"
 
-
-
-BoardDigitalInput::BoardDigitalInput(byte pin,byte maxBounce) :pinNumber(pin), bounceFilter(maxBounce){}
+BoardDigitalInput::BoardDigitalInput(byte pin, byte maxBounce, const bool revert = false) : pinNumber(pin), bounceFilter(maxBounce), pRevert(revert)
+{
+}
 
 void BoardDigitalInput::setup()
 {
     pinMode(pinNumber, INPUT_PULLUP);
-    //changed = false;
+    // changed = false;
 }
 
 void BoardDigitalInput::loop()
@@ -37,7 +37,10 @@ void BoardDigitalInput::loop()
 
 bool BoardDigitalInput::GetValue()
 {
-    return value;
+    if (!pRevert)
+        return value;
+    else
+        return !value;
 }
 
 /* void BoardDigitalInput::OnChange(void (*callback)(bool))
@@ -45,6 +48,7 @@ bool BoardDigitalInput::GetValue()
     onChangeCallback = callback;
 } */
 
-bool BoardDigitalInput::HasChanged(){
+bool BoardDigitalInput::HasChanged()
+{
     return changed;
 }

@@ -1,4 +1,4 @@
-
+#include "Counter.h"
 
 
 // unsigned long counter(bool input, unsigned long *tmp, bool *memval)

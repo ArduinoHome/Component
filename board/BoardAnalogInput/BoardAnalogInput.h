@@ -2,10 +2,10 @@
 #define BOARDANALOGINPUT_H
 
 #include <Arduino.h>
-#include "AnalogInput.h"
+#include "AnalogInputInterface.h"
 
 
-class BoardAnalogInput : public AnalogInput
+class BoardAnalogInput : public AnalogInputInterface
 {
 private:
     const byte bounceFilter;

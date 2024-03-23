@@ -1,7 +1,7 @@
 #include "mqttAnalogInput.h"
 
 
-mqttAnalogInput::mqttAnalogInput(PubSubClient *mqttPtr, const char *deviceName, const char *analogInputName, AnalogInput *input,const unsigned long scaninterval) : device(deviceName), name(analogInputName)
+mqttAnalogInput::mqttAnalogInput(PubSubClient *mqttPtr, const char *deviceName, const char *analogInputName, AnalogInputInterface *input,const unsigned long scaninterval) : device(deviceName), name(analogInputName)
 {
     pClient = mqttPtr;
     pAnalogInput = input;
@@ -26,7 +26,7 @@ void mqttAnalogInput::publishStatus()
 {
     if (pClient->connected())
     {
-        String t = String(device) + String("/analogInput/") + String(name) + String("/state");
+        String t = String(device) + String(F("/analogInput/")) + String(name) + String(F("/state"));
         char topicArray[t.length() + 1];
         t.toCharArray(topicArray, sizeof(topicArray));
 
