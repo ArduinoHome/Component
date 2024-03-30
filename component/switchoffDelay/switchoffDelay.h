@@ -1,13 +1,13 @@
 #ifndef SWITCHOFFDELAY_H
 #define SWITCHOFFDELAY_H
 
-
 #include "DigitalOutputInterface.h"
 #include "Timer.h"
 
 class switchoffDelay
 {
 private:
+    bool intervened = false;
     unsigned long pDelay;
     Timer timer;
     DigitalOutputInterface *pOutput;
@@ -18,6 +18,7 @@ public:
     void SetValue(bool newValue);
     void Toggle();
     bool GetValue();
+    bool Intervened();
 };
 
 #endif
