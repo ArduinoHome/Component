@@ -21,7 +21,7 @@ ${include-component}
 
 
 byte mac[] = {${mac-address}};
-long lastReconnectAttempt = 0;
+unsigned long lastReconnectAttempt = 0;
 IPAddress server(${mqtt-server});
 EthernetClient ethClient;
 PubSubClient client(ethClient);
