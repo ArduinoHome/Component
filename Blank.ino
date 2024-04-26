@@ -1,8 +1,12 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <PubSubClient.h>
-#define OTETHERNET
-#include <ArduinoOTA.h>
+
+#if !defined(ARDUINO_AVR_UNO)
+  #define OTETHERNET
+  #include <ArduinoOTA.h>
+#endif
+
 
 #include "BoardReboot.h"
 
@@ -37,8 +41,9 @@ void setup()
   delay(3000);
   client.setServer(server, 1883);
   client.setCallback(callback);
-
+#if !defined(ARDUINO_AVR_UNO)
   ArduinoOTA.begin(Ethernet.localIP(), NAME_ARDUINO, OTA_PASSWORD, InternalStorage);
+#endif
 }
 
 boolean reconnect()
@@ -74,8 +79,9 @@ void loop()
     }
     else
       client.loop();
-
+#if !defined(ARDUINO_AVR_UNO)
     ArduinoOTA.poll();
+#endif
   }
 
   ${input}
