@@ -6,19 +6,15 @@
   #define OTETHERNET
   #include <ArduinoOTA.h>
 #endif
-
-
+// #define DEBUG
+#include "secrets.h"
 #include "BoardReboot.h"
 
 ${include-component}
 
 #define NAME_ARDUINO "${board-name}"
-#define MQTT_USERNAME "${mqtt-user}"
-#define MQTT_PASSWORD "${mqtt-password}"
-
 #define VERSION "${version}"
 
-#define OTA_PASSWORD "${ota-password}"
 
 #define DIGITALBOUNCE ${digital-bounce}
 
