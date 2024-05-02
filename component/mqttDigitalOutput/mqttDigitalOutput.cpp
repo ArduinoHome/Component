@@ -12,23 +12,19 @@ void mqttDigitalOutput::loop(){}
 
 void mqttDigitalOutput::reconnected()
 {
-    String r = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
-    char charArray[r.length() + 1];
-    r.toCharArray(charArray, sizeof(charArray));
-
+    String topicCommand = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
+    
     if (pClient->connected())
-        pClient->subscribe(charArray);
+        pClient->subscribe(topicCommand.c_str());
 
     publishStatus();
 }
 
 void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
-    char charArray[r.length() + 1];
-    r.toCharArray(charArray, sizeof(charArray));
-
-    if (strcmp(topic, charArray) == 0)
+    String topicCommand = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
+    
+    if (strcmp(topic, topicCommand.c_str()) == 0)
     {
         if (payload[0] == '1')
             pDigitalOutput->SetOn();
@@ -43,10 +39,7 @@ void mqttDigitalOutput::publishStatus()
 {
     if (pClient->connected())
     {
-        String r = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/state"));
-        char charArray[r.length() + 1];
-        r.toCharArray(charArray, sizeof(charArray));
-
-        pClient->publish(charArray, pDigitalOutput->GetValue() ? ON : OFF, true);
+        String topic = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/state"));
+        pClient->publish(topic.c_str(), pDigitalOutput->GetValue() ? ON : OFF, true);
     }
 }

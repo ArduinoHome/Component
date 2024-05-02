@@ -16,23 +16,19 @@ void mqttLightDelayed::loop()
 
 void mqttLightDelayed::reconnected()
 {
-    String r = String(device) + String(F("/light/")) + String(light) + String(F("/command"));
-    char charArray[r.length() + 1];
-    r.toCharArray(charArray, sizeof(charArray));
+    String topicCommand = String(device) + String(F("/light/")) + String(light) + String(F("/command"));
 
     if (pClient->connected())
-        pClient->subscribe(charArray);
+        pClient->subscribe(topicCommand.c_str());
 
     publishLightStatus();
 }
 
 void mqttLightDelayed::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String(F("/light/")) + String(light) + String(F("/command"));
-    char charArray[r.length() + 1];
-    r.toCharArray(charArray, sizeof(charArray));
+    String topicCommand = String(device) + String(F("/light/")) + String(light) + String(F("/command"));
 
-    if (strcmp(topic, charArray) == 0)
+    if (strcmp(topic, topicCommand.c_str()) == 0)
     {
         if (payload[0] == '1')
             LightDelayed::SetValue(true);
@@ -50,10 +46,7 @@ void mqttLightDelayed::publishLightStatus()
 {
     if (pClient->connected())
     {
-        String r = String(device) + String(F("/light/")) + String(light) + String(F("/state"));
-        char charArray[r.length() + 1];
-        r.toCharArray(charArray, sizeof(charArray));
-
-        pClient->publish(charArray, LightDelayed::GetValue() ? ON : OFF, true);
+        String topic = String(device) + String(F("/light/")) + String(light) + String(F("/state"));
+        pClient->publish(topic.c_str(), LightDelayed::GetValue() ? ON : OFF, true);
     }
 }

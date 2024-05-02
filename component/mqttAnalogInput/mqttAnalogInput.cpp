@@ -26,14 +26,9 @@ void mqttAnalogInput::publishStatus()
 {
     if (pClient->connected())
     {
-        String t = String(device) + String(F("/analogInput/")) + String(name) + String(F("/state"));
-        char topicArray[t.length() + 1];
-        t.toCharArray(topicArray, sizeof(topicArray));
+        String topic = String(device) + "/analogInput/" + name + "/state";
+        String value = String(pAnalogInput->GetValue());
 
-        String v = (String)pAnalogInput->GetValue();
-        char valueArray[v.length() + 1];
-        v.toCharArray(valueArray, sizeof(valueArray));
-
-        pClient->publish(topicArray, valueArray, true);
+        pClient->publish(topic.c_str(), value.c_str(), true);
     }
 }

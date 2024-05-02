@@ -1,6 +1,5 @@
 #include "mqttFloatInput.h"
 
-
 mqttFloatInput::mqttFloatInput(PubSubClient *mqttPtr, const char *deviceName, const char *floatInputName, FloatInputInterface *input) : device(deviceName), name(floatInputName)
 {
     pClient = mqttPtr;
@@ -19,20 +18,15 @@ void mqttFloatInput::reconnected()
         publishStatus();
 }
 
-void mqttFloatInput::mqttCallback(char *topic, byte *payload, unsigned int length){}
+void mqttFloatInput::mqttCallback(char *topic, byte *payload, unsigned int length) {}
 
 void mqttFloatInput::publishStatus()
 {
     if (pClient->connected())
     {
-        String t = String(device) + String(F("/floatInput/")) + String(name) + String(F("/state"));
-        char topicArray[t.length() + 1];
-        t.toCharArray(topicArray, sizeof(topicArray));
+        String topic = String(device) + "/floatInput/" + name + "/state";
+        String value = (String)pFloatInput->GetValue();
 
-        String v = (String)pFloatInput->GetValue();
-        char valueArray[v.length() + 1];
-        v.toCharArray(valueArray, sizeof(valueArray));
-
-        pClient->publish(topicArray, valueArray, true);
+        pClient->publish(topic.c_str(), value.c_str(), true);
     }
 }
