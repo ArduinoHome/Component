@@ -1,6 +1,5 @@
 #include "mqttDigitalOutput.h"
-#define ON "1"
-#define OFF "0"
+
 
 mqttDigitalOutput::mqttDigitalOutput(PubSubClient *client, const char *deviceName,const char *digitalOutputName,DigitalOutputInterface *output) : device(deviceName), name(digitalOutputName)
 {

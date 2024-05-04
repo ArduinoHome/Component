@@ -3,6 +3,7 @@
 
 #include <PubSubClient.h>
 #include "Light.h"
+#include "mqttLightParam.h"
 
 class mqttLight : public Light
 {

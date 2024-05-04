@@ -1,6 +1,4 @@
 #include "mqttDigitalInput.h"
-#define ON "1"
-#define OFF "0"
 
 mqttDigitalInput::mqttDigitalInput(PubSubClient *mqttPtr, const char *deviceName, const char *digitalInputName, DigitalInputInterface *input) : device(deviceName), name(digitalInputName)
 {

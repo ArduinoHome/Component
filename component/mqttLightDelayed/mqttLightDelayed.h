@@ -3,6 +3,7 @@
 
 #include <PubSubClient.h>
 #include "LightDelayed.h"
+#include "mqttLightDelayedParam.h"
 
 class mqttLightDelayed : public LightDelayed
 {

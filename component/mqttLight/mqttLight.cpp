@@ -1,6 +1,4 @@
 #include "mqttLight.h"
-#define ON "1"
-#define OFF "0"
 
 mqttLight::mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton) : device(deviceName), name(lightName), Light(input, output, isButton)
 {

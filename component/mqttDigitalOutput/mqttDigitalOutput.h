@@ -4,6 +4,7 @@
 #include <PubSubClient.h>
 #include <Arduino.h>
 #include "DigitalOutputInterface.h"
+#include "mqttDigitalOutputParam.h"
 
 
 class mqttDigitalOutput
