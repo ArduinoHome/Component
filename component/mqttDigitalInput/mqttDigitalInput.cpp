@@ -28,6 +28,6 @@ void mqttDigitalInput::publishStatus()
     if (pClient->connected())
     {
         String topic = String(device) + String(F("/digitalInput/")) + String(name) + String(F("/state"));
-        pClient->publish(topic.c_str(), pDigitalInput->GetValue() ? ON : OFF, true);
+        pClient->publish(topic.c_str(), pDigitalInput->GetValue() ? MQTTDIGITALINPUT_ON : MQTTDIGITALINPUT_OFF, true);
     }
 }

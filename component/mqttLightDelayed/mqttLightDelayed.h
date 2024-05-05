@@ -4,6 +4,7 @@
 #include <PubSubClient.h>
 #include "LightDelayed.h"
 #include "mqttLightDelayedParam.h"
+//#include "DeviceClassDataInterface.h"
 
 class mqttLightDelayed : public LightDelayed
 {
@@ -12,6 +13,7 @@ private:
     const char *device;
     const char *light;
     void publishLightStatus();
+
 
 public:
     mqttLightDelayed(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true);

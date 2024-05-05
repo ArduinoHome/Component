@@ -1,6 +1,6 @@
 #include "mqttLight.h"
 
-mqttLight::mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton) : device(deviceName), name(lightName), Light(input, output, isButton)
+mqttLight::mqttLight(PubSubClient *client, const char *deviceName, const DeviceClass deviceclass, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton) : device(deviceName), name(lightName), Light(input, output, isButton),mDeviceclass(deviceclass)
 {
     pClient = client;
 }
@@ -14,8 +14,7 @@ void mqttLight::loop()
 
 void mqttLight::reconnected()
 {
-    String topicCommand = String(device) + String(F("/light/")) + String(name) + String(F("/command"));
-    
+    String topicCommand = String(device) +"/light/"+ String(name) + String(F("/command"));
 
     if (pClient->connected())
         pClient->subscribe(topicCommand.c_str());
@@ -25,16 +24,15 @@ void mqttLight::reconnected()
 
 void mqttLight::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String topicCommand = String(device) + String(F("/light/")) + String(name) + String(F("/command"));
-    
+    String topicCommand = String(device) +"/light/"+ String(name) + String(F("/command"));
 
     if (strcmp(topic, topicCommand.c_str()) == 0)
     {
-        if (payload[0] == '1')
+        if (memcmp(payload, MQTTLIGHT_ON, length) == 0)
             Light::SetValue(true);
-        else if (payload[0] == '0')
+        else if (memcmp(payload, MQTTLIGHT_OFF, length) == 0)
             Light::SetValue(false);
-        else if (payload[0] == 't')
+        else if (memcmp(payload, MQTTLIGHT_TOGGLE, length) == 0)
             Light::Toggle();
 
         publishLightStatus();
@@ -45,7 +43,7 @@ void mqttLight::publishLightStatus()
 {
     if (pClient->connected())
     {
-        String topic = String(device) + String(F("/light/")) + String(name) + String(F("/state"));
-        pClient->publish(topic.c_str(), Light::GetValue() ? ON : OFF, true);
+        String topic = String(device) +"/light/"+ String(name) + String(F("/state"));
+        pClient->publish(topic.c_str(), Light::GetValue() ? MQTTLIGHT_ON : MQTTLIGHT_OFF, true);
     }
 }

@@ -5,6 +5,7 @@
 #include "Light.h"
 #include "mqttLightParam.h"
 
+
 class mqttLight : public Light
 {
 private:
@@ -12,9 +13,10 @@ private:
     const char *device;
     const char *name;
     void publishLightStatus();
+    const DeviceClass mDeviceclass;
 
 public:
-    mqttLight(PubSubClient *client, const char *deviceName, const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
+    mqttLight(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

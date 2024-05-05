@@ -1,2 +1,3 @@
-#define ON "1"
-#define OFF "0"
+#define MQTTDIGITALOUTPUT_ON "1"
+#define MQTTDIGITALOUTPUT_OFF "0"
+#define MQTTDIGITALOUTPUT_TOGGLE "toggle"

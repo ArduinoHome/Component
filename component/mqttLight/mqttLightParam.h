@@ -1,2 +1,3 @@
-#define ON "1"
-#define OFF "0"
+#define MQTTLIGHT_ON "1"
+#define MQTTLIGHT_OFF "0"
+#define MQTTLIGHT_TOGGLE "t"

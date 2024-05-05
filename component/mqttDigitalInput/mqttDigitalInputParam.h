@@ -1,5 +1,5 @@
 
 
 
-#define ON "1"
-#define OFF "0"
+#define MQTTDIGITALINPUT_ON "1"
+#define MQTTDIGITALINPUT_OFF "0"

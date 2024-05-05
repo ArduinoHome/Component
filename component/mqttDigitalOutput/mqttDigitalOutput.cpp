@@ -25,10 +25,12 @@ void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int le
     
     if (strcmp(topic, topicCommand.c_str()) == 0)
     {
-        if (payload[0] == '1')
+        if (memcmp(payload, MQTTDIGITALOUTPUT_ON, length) == 0)
             pDigitalOutput->SetOn();
-        else if (payload[0] == '0')
+        else if (memcmp(payload, MQTTDIGITALOUTPUT_OFF, length) == 0)
             pDigitalOutput->SetOff();
+        // else if (memcmp(payload, MQTTLIGHT_TOGGLE, length) == 0)
+        //     pDigitalOutput->Toggle();
 
         publishStatus();
     }
@@ -39,6 +41,6 @@ void mqttDigitalOutput::publishStatus()
     if (pClient->connected())
     {
         String topic = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/state"));
-        pClient->publish(topic.c_str(), pDigitalOutput->GetValue() ? ON : OFF, true);
+        pClient->publish(topic.c_str(), pDigitalOutput->GetValue() ? MQTTDIGITALOUTPUT_ON : MQTTDIGITALOUTPUT_OFF, true);
     }
 }
