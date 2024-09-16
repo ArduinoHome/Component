@@ -38,3 +38,8 @@ unsigned long Timer::TimeElapsed()
     else
         return 0;
 }
+
+
+bool Timer::isStopped(){
+    return enabled;
+}
