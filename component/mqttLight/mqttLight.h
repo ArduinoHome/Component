@@ -4,7 +4,7 @@
 #include <PubSubClient.h>
 #include "Light.h"
 #include "mqttLightParam.h"
-
+#include "DeviceClassDataInterface.h"
 
 class mqttLight : public Light
 {
@@ -16,10 +16,12 @@ private:
     const DeviceClass mDeviceclass;
 
 public:
-    mqttLight(PubSubClient *client, const char *deviceName,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
+    mqttLight(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);
+    void SetValue(bool newValue);
+    void toggle();
 };
 
 #endif

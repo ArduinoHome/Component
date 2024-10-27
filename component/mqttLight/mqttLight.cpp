@@ -14,7 +14,7 @@ void mqttLight::loop()
 
 void mqttLight::reconnected()
 {
-    String topicCommand = String(device) +"/light/"+ String(name) + String(F("/command"));
+    String topicCommand = String(device) +"/"+ String(DeviceClassText[mDeviceclass]) + "/"+ String(name) + String(F("/command"));
 
     if (pClient->connected())
         pClient->subscribe(topicCommand.c_str());
@@ -24,7 +24,7 @@ void mqttLight::reconnected()
 
 void mqttLight::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String topicCommand = String(device) +"/light/"+ String(name) + String(F("/command"));
+    String topicCommand = String(device) +"/"+ String(DeviceClassText[mDeviceclass]) + "/"+ String(name) + String(F("/command"));
 
     if (strcmp(topic, topicCommand.c_str()) == 0)
     {
@@ -43,7 +43,19 @@ void mqttLight::publishLightStatus()
 {
     if (pClient->connected())
     {
-        String topic = String(device) +"/light/"+ String(name) + String(F("/state"));
+        String topic = String(device) +"/"+ String(DeviceClassText[mDeviceclass]) + "/"+ String(name) + String(F("/state"));
         pClient->publish(topic.c_str(), Light::GetValue() ? MQTTLIGHT_ON : MQTTLIGHT_OFF, true);
     }
+}
+
+void mqttLight::toggle()
+{
+    Light::Toggle();
+    publishLightStatus();
+}
+
+void mqttLight::SetValue(bool newValue)
+{
+    Light::SetValue(newValue);
+    publishLightStatus();
 }
