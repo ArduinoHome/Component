@@ -14,10 +14,10 @@ private:
     Timer timerScan = Timer();
     double value;
     bool changed = false;
-    const uint8_t id;
+    const uint8_t* sensorId;
 
 public:
-    OneWireTemp(OneWire *busOnewire, const uint8_t deviceId = 0);
+    OneWireTemp(OneWire *busOnewire, const uint8_t* sensorAddress);
     void setup();
     void loop();
     double GetValue();
