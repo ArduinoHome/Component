@@ -46,18 +46,17 @@ void printOneWire()
 
   // Cerca il primo dispositivo sulla rete OneWire
   onewire.reset_search();
-  Serial.begin(9600);
   while (onewire.search(addr))
   {
     // Stampa l'ID del dispositivo trovato
-    Serial.print("Dispositivo trovato: ");
+    prt("Dispositivo trovato: ");
     for (int i = 0; i < 8; i++)
     {
       if (addr[i] < 16)
-        Serial.print('0'); // Aggiunge uno zero per formattare
-      Serial.print(addr[i], HEX);
+        prt('0'); // Aggiunge uno zero per formattare
+      prt(addr[i], HEX);
     }
-    Serial.println();
+    prtln();
   }
 }
 

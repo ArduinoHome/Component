@@ -49,6 +49,11 @@ void setup()
 #if !defined(ARDUINO_AVR_UNO)
   ArduinoOTA.begin(Ethernet.localIP(), NAME_ARDUINO, OTA_PASSWORD, InternalStorage);
 #endif
+
+#if DEBUG
+  Serial.begin(9600);
+#endif
+
 }
 
 boolean reconnect()
