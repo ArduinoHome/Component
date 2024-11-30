@@ -6,9 +6,18 @@
   #define OTETHERNET
   #include <ArduinoOTA.h>
 #endif
-// #define DEBUG
+
 #include "secrets.h"
 #include "BoardReboot.h"
+
+#define DEBUG 0
+#if DEBUG
+  #define prt(x) Serial.print(x);
+  #define prtln(x) Serial.println(x);
+#else 
+  #define prt(x)
+  #define prtln(x)
+#endif
 
 ${include-component}
 
