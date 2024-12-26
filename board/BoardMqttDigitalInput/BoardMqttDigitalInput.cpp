@@ -24,7 +24,7 @@ void BoardMqttDigitalInput::loop()
 
 void BoardMqttDigitalInput::reconnected()
 {
-    String r = String(device) + String(F("/digitalInput/")) + String(name) + String(F("/state"));
+    String r = "ArduinoHome/"+String(device) + String(F("/digitalInput/")) + String(name) + String(F("/state"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
     if (pClient->connected())
@@ -33,7 +33,7 @@ void BoardMqttDigitalInput::reconnected()
 
 void BoardMqttDigitalInput::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String(F("/digitalInput/")) + String(name) + String(F("/state"));
+    String r = "ArduinoHome/"+String(device) + String(F("/digitalInput/")) + String(name) + String(F("/state"));
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
 

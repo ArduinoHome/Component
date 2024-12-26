@@ -21,7 +21,7 @@ void mqttDigitalOutput::reconnected()
 
 void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String topicCommand = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
+    String topicCommand = "ArduinoHome/"+String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/command"));
     
     if (strcmp(topic, topicCommand.c_str()) == 0)
     {
@@ -40,7 +40,7 @@ void mqttDigitalOutput::publishStatus()
 {
     if (pClient->connected())
     {
-        String topic = String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/state"));
+        String topic = "ArduinoHome/"+String(device) + String(F("/digitalOutput/")) + String(name) + String(F("/state"));
         pClient->publish(topic.c_str(), pDigitalOutput->GetValue() ? MQTTDIGITALOUTPUT_ON : MQTTDIGITALOUTPUT_OFF, true);
     }
 }

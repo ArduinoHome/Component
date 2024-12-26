@@ -1,22 +1,22 @@
-#ifndef MQTTLIGHT_H
-#define MQTTLIGHT_H
+#ifndef MQTTSWITCH_H
+#define MQTTSWITCH_H
 
 #include <PubSubClient.h>
-#include "Light.h"
-#include "mqttLightParam.h"
+#include "Switch.h"
+#include "mqttSwitchParam.h"
 #include "DeviceClassDataInterface.h"
 
-class mqttLight : public Light
+class mqttSwitch : public Switch
 {
 private:
     PubSubClient *pClient;
     const char *device;
     const char *name;
-    void publishLightStatus();
+    void publishSwitchStatus();
     const DeviceClass mDeviceclass;
 
 public:
-    mqttLight(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
+    mqttSwitch(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);

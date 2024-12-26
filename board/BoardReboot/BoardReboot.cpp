@@ -14,7 +14,7 @@ void BoardReboot::reconnected()
 {
     if (mqttClient->connected())
     {
-        String r = String(device) + String("/board/reboot");
+        String r = "ArduinoHome/"+String(device) + String("/board/reboot");
         char charArray[r.length() + 1];
         r.toCharArray(charArray, sizeof(charArray));
         mqttClient->subscribe(charArray);
@@ -23,7 +23,7 @@ void BoardReboot::reconnected()
 
 void BoardReboot::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
-    String r = String(device) + String("/board/reboot");
+    String r = "ArduinoHome/"+String(device) + String("/board/reboot");
     char charArray[r.length() + 1];
     r.toCharArray(charArray, sizeof(charArray));
     if (strcmp(topic, charArray) == 0)

@@ -1,11 +1,11 @@
-#ifndef LIGHT_H
-#define LIGHT_H
+#ifndef SWITCH_H
+#define SWITCH_H
 
 #include <Arduino.h>
 #include "DigitalInputInterface.h"
 #include "DigitalOutputInterface.h"
 
-class Light
+class Switch
 {
 private:
     const bool button;
@@ -14,7 +14,7 @@ private:
     DigitalOutputInterface *pDigitalOutput;
 
 public:
-    Light(DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
+    Switch(DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     bool GetValue();
     bool HasChanged();

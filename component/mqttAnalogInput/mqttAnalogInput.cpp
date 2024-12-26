@@ -26,7 +26,7 @@ void mqttAnalogInput::publishStatus()
 {
     if (pClient->connected())
     {
-        String topic = String(device) + "/analogInput/" + name + "/state";
+        String topic = "ArduinoHome/"+String(device) + "/analogInput/" + name + "/state";
         String value = String(pAnalogInput->GetValue());
 
         pClient->publish(topic.c_str(), value.c_str(), true);

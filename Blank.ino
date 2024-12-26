@@ -34,7 +34,7 @@ unsigned long lastReconnectAttempt = 0;
 IPAddress server(${mqtt-server});
 EthernetClient ethClient;
 PubSubClient client(ethClient);
-BoardReboot boardReboot= BoardReboot(&client, NAME_ARDUINO);
+BoardReboot boardReboot = BoardReboot(&client, NAME_ARDUINO);
 
 ${declaration-component}
 

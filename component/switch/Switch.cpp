@@ -1,12 +1,12 @@
-#include "Light.h"
+#include "Switch.h"
 
-Light::Light(DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true) : button(isButton)
+Switch::Switch(DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true) : button(isButton)
 {
     pDigitalInput = input;
     pDigitalOutput = output;
 }
 
-void Light::loop()
+void Switch::loop()
 {
     changed = false;
     if ((button && pDigitalInput->HasChanged() && pDigitalInput->GetValue()) || (!button && pDigitalInput->HasChanged()))
@@ -16,24 +16,24 @@ void Light::loop()
     }
 }
 
-bool Light::GetValue()
+bool Switch::GetValue()
 {
     return pDigitalOutput->GetValue();
 }
 
-bool Light::HasChanged()
+bool Switch::HasChanged()
 {
     return changed;
 }
 
-void Light::SetValue(bool newValue)
+void Switch::SetValue(bool newValue)
 {
     if (newValue != pDigitalOutput->GetValue())
         changed = true;
     pDigitalOutput->SetValue(newValue);
 }
 
-void Light::Toggle()
+void Switch::Toggle()
 {
     changed = true;
     pDigitalOutput->Toggle();

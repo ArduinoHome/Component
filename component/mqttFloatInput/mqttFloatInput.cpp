@@ -24,7 +24,7 @@ void mqttFloatInput::publishStatus()
 {
     if (pClient->connected())
     {
-        String topic = String(device) + "/floatInput/" + name + "/state";
+        String topic = "ArduinoHome/"+String(device) + "/floatInput/" + name + "/state";
         String value = (String)pFloatInput->GetValue();
 
         pClient->publish(topic.c_str(), value.c_str(), true);
