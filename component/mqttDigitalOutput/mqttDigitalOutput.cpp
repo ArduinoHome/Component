@@ -29,7 +29,7 @@ void mqttDigitalOutput::mqttCallback(char *topic, byte *payload, unsigned int le
             pDigitalOutput->SetOn();
         else if (memcmp(payload, MQTTDIGITALOUTPUT_OFF, length) == 0)
             pDigitalOutput->SetOff();
-        // else if (memcmp(payload, MQTTLIGHT_TOGGLE, length) == 0)
+        // else if (memcmp(payload, MQTTDIGITALOUTPUT_TOGGLE, length) == 0)
         //     pDigitalOutput->Toggle();
 
         publishStatus();

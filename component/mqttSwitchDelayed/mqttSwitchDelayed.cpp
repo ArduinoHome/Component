@@ -1,6 +1,6 @@
 #include "mqttSwitchDelayed.h"
 
-mqttSwitchDelayed::mqttSwitchDelayed(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *switchName, DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true) : device(deviceName), name(switchName), LightDelayed(input,output,delay,isButton),mDeviceclass(deviceclass)
+mqttSwitchDelayed::mqttSwitchDelayed(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *switchName, DigitalInputInterface *input, DigitalOutputInterface *output, const unsigned long delay, const bool isButton = true) : device(deviceName), name(switchName), SwitchDelayed(input,output,delay,isButton),mDeviceclass(deviceclass)
 {
     pClient = client;
 }

@@ -16,7 +16,7 @@ private:
     const DeviceClass mDeviceclass;
 
 public:
-    mqttSwitch(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *lightName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
+    mqttSwitch(PubSubClient *client, const char *deviceName,const DeviceClass deviceclass,const char *switchName, DigitalInputInterface *input, DigitalOutputInterface *output, const bool isButton = true);
     void loop();
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);
