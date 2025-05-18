@@ -1,16 +1,39 @@
 #include "Counter.h"
 
 
-// unsigned long counter(bool input, unsigned long *tmp, bool *memval)
-// {
-//   unsigned long result = 0;
-//   if (input == true && *memval == false)
-//     *tmp = millis();
 
-//   // if (input == false && *memval == true)
-//   result = millis() - *tmp;
 
-//   *memval = input;
+void Counter::Start()
+{
+    startTime = millis();
+    enabled = true;
+}
 
-//   return result;
-// }
+
+
+void Counter::Stop()
+{
+    if(enabled == true)
+        offsetTime =+ millis() - startTime;
+    enabled = false;
+}
+
+
+void Counter::Reset()
+{
+    offsetTime = 0;
+}
+
+
+bool Counter::isStopped()
+{
+    return !enabled;
+}
+
+unsigned long Counter::TimeElapsed()
+{
+    if(enabled == false)
+        return offsetTime;
+    else
+        return (millis() - startTime) + offsetTime;
+}
