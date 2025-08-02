@@ -48,7 +48,7 @@ void mqttSwitch::publishSwitchStatus()
     }
 }
 
-void mqttSwitch::toggle()
+void mqttSwitch::Toggle()
 {
     Switch::Toggle();
     publishSwitchStatus();

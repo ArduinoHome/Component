@@ -21,7 +21,7 @@ public:
     void reconnected();
     void mqttCallback(char *topic, byte *payload, unsigned int length);
     void SetValue(bool newValue);
-    void toggle();
+    void Toggle();
 };
 
 #endif
